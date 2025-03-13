@@ -1,38 +1,329 @@
-.App {
-  text-align: center;
+/* App.css */
+:root {
+  --primary: #1DB954;
+  --dark: #121212;
+  --light-dark: #282828;
+  --text: #FFFFFF;
+  --secondary-text: #B3B3B3;
+  --underground: #9370DB; /* Purple for underground */
+  --mainstream: #1DB954; /* Green for mainstream */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--dark);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  color: var(--primary);
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.navigation {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.navigation button {
+  background: var(--light-dark);
+  border: none;
+  color: var(--text);
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.navigation button:hover {
+  background-color: var(--primary);
+  transform: scale(1.05);
+}
+
+/* Login Screen */
+.login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 100vh;
+  text-align: center;
+}
+
+.login-button {
+  background-color: var(--primary);
   color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.login-button:hover {
+  transform: scale(1.05);
+  background-color: #1ED760;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Popularity Slider */
+.popularity-slider {
+  background-color: var(--light-dark);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.slider-container label {
+  width: 120px;
+}
+
+.slider-container input {
+  flex-grow: 1;
+  margin: 0 15px;
+}
+
+.slider-description {
+  font-size: 0.9em;
+  color: var(--secondary-text);
+  margin-top: 10px;
+}
+
+/* Tracks & Artists */
+.tracks-container, .tracks-grid, .artists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.track-card, .discovery-track, .artist-card {
+  background-color: var(--light-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.track-card:hover, .discovery-track:hover, .artist-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.track-card.selected {
+  border: 2px solid var(--primary);
+}
+
+.track-card img, .discovery-track img, .artist-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.track-info {
+  padding: 15px;
+}
+
+.track-info h4, .discovery-track h4, .artist-card h4 {
+  margin: 0 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-info p, .discovery-track p, .artist-card p {
+  margin: 0 0 10px 0;
+  color: var(--secondary-text);
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+audio {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 0;
+}
+
+/* Popularity indicators */
+.popularity-indicator {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 10px;
+}
+
+.popularity-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--underground), var(--mainstream));
+}
+
+.popularity-indicator span {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-size: 0.8em;
+  color: var(--secondary-text);
+}
+
+/* Genre tags */
+.genre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.genre-tag {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.genre-tag:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.genre-tag.selected {
+  background-color: var(--primary);
+}
+
+/* Playlist Creator */
+.playlist-form {
+  background-color: var(--light-dark);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.playlist-input, .playlist-textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.playlist-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.create-playlist-button {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-playlist-button:hover {
+  background-color: #1ED760;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 30px;
+  font-size: 18px;
+  color: var(--secondary-text);
+}
+
+/* Playlists grid */
+.playlists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.playlist-card {
+  background-color: var(--light-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.playlist-card:hover {
+  transform: translateY(-5px);
+}
+
+.playlist-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.playlist-card h4, .playlist-card p {
+  margin: 0;
+  padding: 10px;
+}
+
+.playlist-card p {
+  color: var(--secondary-text);
+  font-size: 0.9em;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .tracks-container, .tracks-grid, .artists-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
-  to {
-    transform: rotate(360deg);
+  
+  .playlists-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .navigation {
+    flex-wrap: wrap;
+  }
+  
+  .navigation button {
+    margin-bottom: 10px;
   }
 }
