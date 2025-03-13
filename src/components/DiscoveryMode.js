@@ -1,5 +1,5 @@
 // components/DiscoveryMode.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const DiscoveryMode = ({ spotifyApi, topArtists, topGenres, popularityRange }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -20,7 +20,8 @@ const DiscoveryMode = ({ spotifyApi, topArtists, topGenres, popularityRange }) =
     }
   };
   
-  const exploreGenres = async () => {
+  // Memoize the exploreGenres function with useCallback
+  const exploreGenres = useCallback(async () => {
     if (selectedGenres.length === 0) return;
     
     setLoading(true);
@@ -64,13 +65,13 @@ const DiscoveryMode = ({ spotifyApi, topArtists, topGenres, popularityRange }) =
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedGenres, popularityRange, spotifyApi]); // Added dependencies
   
   useEffect(() => {
     if (selectedGenres.length > 0) {
       exploreGenres();
     }
-  }, [selectedGenres, popularityRange]);
+  }, [selectedGenres, popularityRange, exploreGenres]); // Added exploreGenres to dependency array
   
   return (
     <div className="discovery-mode">

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { 
   RecommendationsPanel, 
   PlaylistCreator, 
   DiscoveryMode, 
-  UserProfile,
+  // UserProfile, // Removed unused import
   PopularitySlider
 } from './components';
 import './App.css';
@@ -71,14 +71,8 @@ function App() {
     }
   }, [token]);
 
-  useEffect(() => {
-    // Generate recommendations when top artists/tracks change or popularity filter changes
-    if (topArtists.length && topTracks.length) {
-      generateRecommendations();
-    }
-  }, [topArtists, topTracks, popularityRange]);
-
-  const generateRecommendations = () => {
+  // Using useCallback to memoize the function
+  const generateRecommendations = useCallback(() => {
     const seedArtists = topArtists.slice(0, 2).map(artist => artist.id);
     const seedTracks = topTracks.slice(0, 3).map(track => track.id);
 
@@ -89,7 +83,14 @@ function App() {
       max_popularity: popularityRange[1],
       limit: 30
     }).then(data => setRecommendations(data.tracks));
-  };
+  }, [topArtists, topTracks, popularityRange]);
+
+  useEffect(() => {
+    // Generate recommendations when top artists/tracks change or popularity filter changes
+    if (topArtists.length && topTracks.length) {
+      generateRecommendations();
+    }
+  }, [topArtists, topTracks, popularityRange, generateRecommendations]); // Added generateRecommendations to the dependency array
 
   const handleLogin = () => {
     // Spotify authorization
