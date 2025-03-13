@@ -95,7 +95,7 @@ function App() {
   const handleLogin = () => {
     // Spotify authorization
     const clientId = "230ef5ef590c435295b0b2edc58e7c66"; // Replace with your Spotify Developer Client ID
-    const redirectUri = "http://localhost:3000/callback";
+    const redirectUri = "https://melodexfinder.netlify.app";
     const scopes = [
       "user-read-private",
       "user-read-email",
